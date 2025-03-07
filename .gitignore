@@ -169,3 +169,53 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Rye virtual environments and cache
+.rye/
+
+# Virtual environment
+.env/
+.venv/
+env/
+venv/
+
+# Distribution / packaging
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+
+# Pytest cache
+.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# MyPy cache
+.mypy_cache/
+
+# Editor and IDE files
+*.swp
+*.swo
+*.bak
+*.orig
+.idea/
+.vscode/
+*.iml
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Rye lock files (if generated)
+rye.lock
