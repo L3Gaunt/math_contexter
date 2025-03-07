@@ -10,3 +10,28 @@
 #   universal: false
 
 -e file:.
+aiohappyeyeballs==2.5.0
+    # via aiohttp
+aiohttp==3.11.13
+    # via math-contexter
+aiosignal==1.3.2
+    # via aiohttp
+attrs==25.1.0
+    # via aiohttp
+dotenv==0.9.9
+    # via math-contexter
+frozenlist==1.5.0
+    # via aiohttp
+    # via aiosignal
+idna==3.10
+    # via yarl
+multidict==6.1.0
+    # via aiohttp
+    # via yarl
+propcache==0.3.0
+    # via aiohttp
+    # via yarl
+python-dotenv==1.0.1
+    # via dotenv
+yarl==1.18.3
+    # via aiohttp
