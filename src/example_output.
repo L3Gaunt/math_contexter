@@ -1,0 +1,195 @@
+of order 1. But this is a contradiction to the residue theorem of complex analysis: the sum
+of the residues of any rational (or meromorphic) differential form on a compact Riemann
+surface is zero, but in our case we have ∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0.
+Step 3. We claim that
+χ(D) ≥ degD+1−g
+for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+
+
+{'context': {'type': 'reference', 'name': 'O(n)', 'content': [{'type': 'text', 'value': 'O(n). By possibly adding more intersection points of '}, {'type': 'concept_definition', 'name': 'X', 'symbol_type': 'symbol', 'id': 'def_X', 'content': [{'type': 'text', 'value': 'X with hyperplanes we can make n arbitrarily large. So by example '}]}, {'type': 'reference', 'to': 'ex_7_7_2', 'value': '7.7.2'}]}}
+Reconstructed text: O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2
+Original     chunk: O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+
+Validation failed for chunk: O(n). By possibly
+adding more intersection points ... Retrying (1/3)
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'choose a hyperplane through that point and add all other intersection points with X to the '}, {'type': 'reference', 'to': 'unknown', 'value': 'Pi'}, {'type': 'text', 'value': ' . This then means that '}, {'type': 'reference', 'to': 'unknown', 'value': 'O(D + P1 + ··· + Pr)'}, {'type': 'text', 'value': ' = '}, {'type': 'reference', 'to': 'unknown', 'value': 'O(n)'}, {'type': 'text', 'value': ' . By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that'}]}}
+Reconstructed text: choose a hyperplane through that point and add all other intersection points with X to the Pi . This then means that O(D + P1 + ··· + Pr) = O(n) . By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that
+Original     chunk: choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+
+Validation failed for chunk: choose a hyperplane through that point and add all... Retrying (1/3)
+{'context': {'type': 'theorem', 'name': 'Step 3', 'content': [{'type': 'text', 'value': 'We claim that '}, {'type': 'reference', 'to': 'unknown', 'value': 'χ(D) ≥ degD+1−g'}, {'type': 'text', 'value': ' for all divisors D. Note that we can choose points P1,...,Pr such that '}, {'type': 'reference', 'to': 'unknown', 'value': 'D+P1 +···+Pr'}, {'type': 'text', 'value': ' is precisely the intersection divisor of X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other '}, {'type': 'reference', 'to': 'unknown', 'value': 'points in X'}]}}
+Reconstructed text: We claim that χ(D) ≥ degD+1−g for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr is precisely the intersection divisor of X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other points in X
+Original     chunk: of order 1. But this is a contradiction to the residue theorem of complex analysis: the sum
+of the residues of any rational (or meromorphic) differential form on a compact Riemann
+surface is zero, but in our case we have ∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0.
+Step 3. We claim that
+χ(D) ≥ degD+1−g
+for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other 
+Validation failed for chunk: of order 1. But this is a contradiction to the res... Retrying (1/3)
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that'}]}}
+Reconstructed text: O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that
+Original     chunk: O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+
+Validation failed for chunk: O(n). By possibly
+adding more intersection points ... Retrying (2/3)
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'choose a hyperplane through that point and add all other intersection points with X to the Pi. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that'}]}}
+Reconstructed text: choose a hyperplane through that point and add all other intersection points with X to the Pi. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that
+Original     chunk: choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+
+Validation failed for chunk: choose a hyperplane through that point and add all... Retrying (2/3)
+{'context': {'type': 'theorem', 'name': 'unnamed', 'content': [{'type': 'text', 'value': 'Step 3. We claim that '}, {'type': 'concept_definition', 'name': 'chi_D', 'symbol_type': 'symbol', 'id': 'def_chi_D', 'content': [{'type': 'text', 'value': 'χ(D) ≥ degD+1−g for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr is'}]}, {'type': 'text', 'value': 'precisely the intersection divisor of X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other intersection points with X to the P_i. This then means that O(D+P1 +···+Pr) = O(n). By possibly adding more intersection points of X with'}]}}
+Reconstructed text: Step 3. We claim that χ(D) ≥ degD+1−g for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr isprecisely the intersection divisor of X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other intersection points with X to the P_i. This then means that O(D+P1 +···+Pr) = O(n). By possibly adding more intersection points of X with
+Original     chunk: Riemann
+surface is zero, but in our case we have ∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0.
+Step 3. We claim that
+χ(D) ≥ degD+1−g
+for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with 
+Validation failed for chunk: Riemann
+surface is zero, but in our case we have ∑... Retrying (1/3)
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that'}]}}
+Reconstructed text: O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that
+Original     chunk: O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+
+Validation failed for chunk: O(n). By possibly
+adding more intersection points ... Retrying (3/3)
+Failed to process chunk after 3 attempts: O(n). By possibly
+adding more intersection points ...
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'of order 1. But this is a contradiction to the residue theorem of complex analysis: the sum'}, {'type': 'text', 'value': ' of the residues of any rational (or meromorphic) differential form on a compact Riemann'}, {'type': 'text', 'value': ' surface is zero, but in our case we have'}, {'type': 'reference', 'to': 'unknown', 'value': '∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0.'}, {'type': 'text', 'value': ' Step 3. We claim that'}, {'type': 'text', 'value': ' χ(D) ≥ degD+1−g'}, {'type': 'text', 'value': ' for all divisors D. Note that we can choose points P1,...,Pr such that'}, {'type': 'text', 'value': ' D+P1 +···+Pr'}, {'type': 'text', 'value': ' is'}, {'type': 'text', 'value': ' precisely the intersection divisor of X with a certain number n of hyperplanes: for every'}, {'type': 'text', 'value': ' point in D we just choose a hyperplane through that point and add all other'}]}}
+Reconstructed text: of order 1. But this is a contradiction to the residue theorem of complex analysis: the sum of the residues of any rational (or meromorphic) differential form on a compact Riemann surface is zero, but in our case we have∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0. Step 3. We claim that χ(D) ≥ degD+1−g for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr is precisely the intersection divisor of X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other
+Original     chunk: of order 1. But this is a contradiction to the residue theorem of complex analysis: the sum
+of the residues of any rational (or meromorphic) differential form on a compact Riemann
+surface is zero, but in our case we have ∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0.
+Step 3. We claim that
+χ(D) ≥ degD+1−g
+for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other 
+Validation failed for chunk: of order 1. But this is a contradiction to the res... Retrying (2/3)
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'choose a hyperplane through that point and add all other intersection points with X to the '}, {'type': 'concept_definition', 'name': 'Pi', 'symbol_type': 'symbol', 'id': 'def_Pi', 'content': [{'type': 'text', 'value': 'Pi'}]}, {'type': 'text', 'value': ' Then this means that '}, {'type': 'reference', 'to': 'def_Pi', 'value': 'O(D + P1 + ··· + Pr)'}, {'type': 'text', 'value': ' = O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by '}, {'type': 'reference', 'to': 'unknown', 'value': 'example 7.7.2'}, {'type': 'text', 'value': ' we find that'}]}}
+Reconstructed text: choose a hyperplane through that point and add all other intersection points with X to the Pi Then this means that O(D + P1 + ··· + Pr) = O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that
+Original     chunk: choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+
+Validation failed for chunk: choose a hyperplane through that point and add all... Retrying (3/3)
+Failed to process chunk after 3 attempts: choose a hyperplane through that point and add all...
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'we can choose points '}, {'type': 'symbol', 'name': 'P1', 'symbol_type': 'symbol', 'id': 'p1'}, {'type': 'text', 'value': ',...,'}, {'type': 'symbol', 'name': 'Pr', 'symbol_type': 'symbol', 'id': 'pr'}, {'type': 'text', 'value': ' such that '}, {'type': 'symbol', 'name': 'D+P1 +,...,+Pr', 'symbol_type': 'expression', 'id': 'expr1'}, {'type': 'text', 'value': ' is precisely the intersection divisor of '}, {'type': 'symbol', 'name': 'X', 'symbol_type': 'symbol', 'id': 'def_x'}, {'type': 'text', 'value': ' with a certain number '}, {'type': 'symbol', 'name': 'n', 'symbol_type': 'symbol', 'id': 'n'}, {'type': 'text', 'value': ' of hyperplanes: for every point in '}, {'type': 'symbol', 'name': 'D', 'symbol_type': 'symbol', 'id': 'def_d'}, {'type': 'text', 'value': ' we just choose a hyperplane through that point and add all other intersection points with '}, {'type': 'symbol', 'name': 'X', 'symbol_type': 'symbol', 'id': 'def_x'}, {'type': 'text', 'value': ' to the '}, {'type': 'symbol', 'name': 'Pi', 'symbol_type': 'symbol', 'id': 'pi'}, {'type': 'text', 'value': ' . This then means that '}, {'type': 'expression', 'name': 'O(D+P1 +...+Pr)', 'symbol_type': 'expression', 'id': 'expr2'}, {'type': 'text', 'value': ' = '}, {'type': 'expression', 'name': 'O(n)', 'symbol_type': 'expression', 'id': 'expr3'}, {'type': 'text', 'value': ' . By possibly adding more intersection points of '}, {'type': 'symbol', 'name': 'X', 'symbol_type': 'symbol', 'id': 'def_x'}, {'type': 'text', 'value': ' with hyperplanes we can make '}, {'type': 'symbol', 'name': 'n', 'symbol_type': 'symbol', 'id': 'n'}, {'type': 'text', 'value': ' arbitrarily large. So by example 7.7.2 we find that'}]}}
+Reconstructed text: we can choose points ,..., such that  is precisely the intersection divisor of  with a certain number  of hyperplanes: for every point in  we just choose a hyperplane through that point and add all other intersection points with  to the  . This then means that  =  . By possibly adding more intersection points of  with hyperplanes we can make  arbitrarily large. So by example 7.7.2 we find that
+Original     chunk: we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+
+Validation failed for chunk: we can choose points P1,...,Pr such that D+P1 +···... Retrying (1/3)
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'Riemann surface is zero, but in our case we have '}, {'type': 'concept_definition', 'name': 'resQ', 'symbol_type': 'symbol', 'id': 'def_resQ', 'content': [{'type': 'text', 'value': 'resQ('}], 'to': 'unknown', 'value': 'ϕ·α'}, {'type': 'text', 'value': ' '}, {'type': 'concept_definition', 'name': 'resP', 'symbol_type': 'symbol', 'id': 'def_resP', 'content': [{'type': 'text', 'value': 'resP('}], 'to': 'unknown', 'value': 'ϕ·α'}, {'type': 'text', 'value': ' '}, {'type': 'text', 'value': '6='}, {'type': 'text', 'value': '0.'}, {'type': 'text', 'value': ' Step 3. We claim that '}, {'type': 'concept_definition', 'name': 'χ(D)', 'symbol_type': 'symbol', 'id': 'def_χD', 'content': [{'type': 'text', 'value': 'χ(D) '}], 'to': 'unknown', 'value': '≥ degD+1−g'}, {'type': 'text', 'value': ' for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr is precisely the intersection divisor of X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other intersection points with X to the Pi. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly adding more intersection points of X with '}]}}
+Reconstructed text: Riemann surface is zero, but in our case we have ϕ·α ϕ·α 6=0. Step 3. We claim that ≥ degD+1−g for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr is precisely the intersection divisor of X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other intersection points with X to the Pi. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly adding more intersection points of X with 
+Original     chunk: Riemann
+surface is zero, but in our case we have ∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0.
+Step 3. We claim that
+χ(D) ≥ degD+1−g
+for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with 
+Validation failed for chunk: Riemann
+surface is zero, but in our case we have ∑... Retrying (2/3)
+{'context': {'type': 'theorem', 'name': 'theorem_1', 'content': [{'type': 'text', 'value': 'of order 1. But this is a contradiction to the residue theorem of complex analysis: the sum of the residues of any rational (or meromorphic) differential form on a compact Riemann surface is zero, but in our case we have'}, {'type': 'mathematical_expression', 'value': '∑_{Q∈X} \text{res}_Q(ϕ·α) = \text{res}_P(ϕ·α) ≠ 0'}, {'type': 'text', 'value': 'Step 3. We claim that\n'}, {'type': 'mathematical_expression', 'value': 'χ(D) ≥ deg(D) + 1 - g'}, {'type': 'text', 'value': 'for all divisors D. Note that we can choose points P1, ..., Pr such that D + P1 + ··· + Pr is\nprecisely the intersection divisor of X with a certain number n of hyperplanes: for every\npoint in D we just choose a hyperplane through that point and add all other'}]}}
+Reconstructed text: of order 1. But this is a contradiction to the residue theorem of complex analysis: the sum of the residues of any rational (or meromorphic) differential form on a compact Riemann surface is zero, but in our case we have∑_{Q∈X}    ext{res}_Q(ϕ·α) =        ext{res}_P(ϕ·α) ≠ 0Step 3. We claim that
+χ(D) ≥ deg(D) + 1 - gfor all divisors D. Note that we can choose points P1, ..., Pr such that D + P1 + ··· + Pr is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other
+Original     chunk: of order 1. But this is a contradiction to the residue theorem of complex analysis: the sum
+of the residues of any rational (or meromorphic) differential form on a compact Riemann
+surface is zero, but in our case we have ∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0.
+Step 3. We claim that
+χ(D) ≥ degD+1−g
+for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other 
+Validation failed for chunk: of order 1. But this is a contradiction to the res... Retrying (3/3)
+Failed to process chunk after 3 attempts: of order 1. But this is a contradiction to the res...
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'we can choose points P1,...,Pr such that }'}, {'type': 'concept_definition', 'name': 'D_plus_Pi', 'symbol_type': 'symbol', 'id': 'def_D_plus_Pi', 'content': [{'type': 'text', 'value': 'D+P1 +···+Pr '}, {'type': 'text', 'value': 'is '}]}, {'type': 'reference', 'to': 'unknown', 'value': 'precisely the intersection divisor'}, {'type': 'concept_definition', 'name': 'X', 'symbol_type': 'symbol', 'id': 'def_X', 'content': [{'type': 'text', 'value': 'of X with a certain number n of hyperplanes: for every '}, {'type': 'text', 'value': 'point in D we just choose a hyperplane through that point and add all other intersection points with X to the Pi'}]}, {'type': 'text', 'value': ' This then means that '}, {'type': 'reference', 'to': 'def_D_plus_Pi', 'value': 'O(D + P1 + ··· + Pr)'}, {'type': 'text', 'value': ' = O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that'}]}}
+Reconstructed text: we can choose points P1,...,Pr such that }D+P1 +···+Pr is precisely the intersection divisorof X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other intersection points with X to the Pi This then means that O(D + P1 + ··· + Pr) = O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2 we find that
+Original     chunk: we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+
+Validation failed for chunk: we can choose points P1,...,Pr such that D+P1 +···... Retrying (2/3)
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'Riemann surface is zero, but in our case we have '}, {'type': 'reference', 'to': 'unknown', 'value': '∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0.'}, {'type': 'text', 'value': ' Step 3. We claim that '}, {'type': 'concept_definition', 'name': 'chi_D', 'symbol_type': 'symbol', 'id': 'def_chi_D', 'content': [{'type': 'text', 'value': 'χ(D) ≥ degD+1−g for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr is precisely the intersection divisor of X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other intersection points with X to the Pi. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly adding more intersection points of X with '}, {'type': 'reference', 'to': 'unknown', 'value': 'unknown'}]}]}}
+Reconstructed text: Riemann surface is zero, but in our case we have ∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0. Step 3. We claim that χ(D) ≥ degD+1−g for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr is precisely the intersection divisor of X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other intersection points with X to the Pi. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly adding more intersection points of X with unknown
+Original     chunk: Riemann
+surface is zero, but in our case we have ∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0.
+Step 3. We claim that
+χ(D) ≥ degD+1−g
+for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with 
+Validation failed for chunk: Riemann
+surface is zero, but in our case we have ∑... Retrying (3/3)
+Failed to process chunk after 3 attempts: Riemann
+surface is zero, but in our case we have ∑...
+{'context': {'type': 'text', 'content': [{'type': 'text', 'value': 'we can choose points '}, {'type': 'reference', 'to': 'unknown', 'value': 'P1, P2, ..., Pr'}, {'type': 'text', 'value': ' such that '}, {'type': 'text', 'value': 'D + P1 +···+Pr'}, {'type': 'text', 'value': ' is precisely the intersection divisor of '}, {'type': 'reference', 'to': 'unknown', 'value': 'X'}, {'type': 'text', 'value': ' with a certain number n of hyperplanes: for every point in '}, {'type': 'reference', 'to': 'unknown', 'value': 'D'}, {'type': 'text', 'value': ' we just choose a hyperplane through that point and add all other intersection points with '}, {'type': 'reference', 'to': 'unknown', 'value': 'X'}, {'type': 'text', 'value': ' to the '}, {'type': 'reference', 'to': 'unknown', 'value': 'Pi'}, {'type': 'text', 'value': ' . This then means that '}, {'type': 'text', 'value': 'O(D + P1 + ··· + Pr)'}, {'type': 'text', 'value': ' = '}, {'type': 'text', 'value': 'O(n)'}], 'to': 'unknown'}, 'example': {'type': 'example', 'name': '7.7.2', 'content': [{'type': 'text', 'value': 'By possibly adding more intersection points of '}, {'type': 'reference', 'to': 'unknown', 'value': 'X'}, {'type': 'text', 'value': ' with hyperplanes we can make n arbitrarily large.'}]}}
+Reconstructed text: we can choose points P1, P2, ..., Pr such that D + P1 +···+Pr is precisely the intersection divisor of X with a certain number n of hyperplanes: for every point in D we just choose a hyperplane through that point and add all other intersection points with X to the Pi . This then means that O(D + P1 + ··· + Pr) = O(n)
+Original     chunk: we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+
+Validation failed for chunk: we can choose points P1,...,Pr such that D+P1 +···... Retrying (3/3)
+Failed to process chunk after 3 attempts: we can choose points P1,...,Pr such that D+P1 +···...
+Warning: 5 chunks failed to process.
+name@name math_contexter % 

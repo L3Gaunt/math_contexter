@@ -63,22 +63,6 @@ def split_text_into_chunks(text: str, chunk_size: int = 100, overlap: int = 70) 
         chunks.append((chunk_text, start_idx, end_idx))
     return chunks
 
-def reconstruct_text(content: List[Dict]) -> str:
-    """Reconstruct text from JSON content by concatenating 'value' fields."""
-    text = ""
-    for obj in content:
-        if "value" in obj:
-            text += obj["value"]
-        elif "content" in obj:
-            text += reconstruct_text(obj["content"])
-    return text
-
-def validate_json(json_obj: Dict, chunk_text: str) -> bool:
-    """Validate that the JSON content matches the input chunk text."""
-    if "context" in json_obj and "content" in json_obj["context"]:
-        return reconstruct_text(json_obj["context"]["content"]) == chunk_text
-    return False
-
 async def call_llm_async(chunk: str, session: aiohttp.ClientSession, semaphore: asyncio.Semaphore) -> Dict | None:
     """Call the LLM asynchronously to convert chunk to JSON."""
     async with semaphore:
@@ -162,5 +146,19 @@ async def main(text: str, output_file: str = "output.json", concurrency_limit: i
 # Example usage
 if __name__ == "__main__":
     # Replace with your mathematical text (e.g., from OCR or LaTeX)
-    sample_text = "Theorem 3.3. Let X be a locally free sheaf. Then X is xyz..."
+    sample_text = '''
+of order 1. But this is a contradiction to the residue theorem of complex analysis: the sum
+of the residues of any rational (or meromorphic) differential form on a compact Riemann
+surface is zero, but in our case we have ∑Q∈X resQ(ϕ·α) = resP(ϕ·α) 6= 0.
+Step 3. We claim that
+χ(D) ≥ degD+1−g
+for all divisors D. Note that we can choose points P1,...,Pr such that D+P1 +···+Pr
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other intersection
+points with X to the Pi
+. This then means that O(D + P1 + ··· + Pr) = O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that
+'''
     asyncio.run(main(sample_text))
