@@ -1,0 +1,5 @@
+
+of order 1. But this is a contradiction to the @@@ residue theorem &&& of @@@ complex analysis &&&: the @@@ sum &&& of the @@@ residues &&& of any rational (or @@@ meromorphic &&&) differential form on a compact @@@ Riemann &&& surface is zero, but in our case we have ∑Q∈X @@@ resQ(ϕ·α) &&& = @@@ resP(ϕ·α) &&& ≠ 0.
+Step 3. We claim that
+@@@ χ(D) &&& ≥ @@@ degD+1−g &&& 
+for all divisors @@@ D &&&.

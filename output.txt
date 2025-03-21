@@ -1,0 +1,12 @@
+
+of @@@ order &&& 1. But this is a contradiction to the @@@ residue theorem &&& of @@@ complex analysis &&&: the @@@ sum &&& of the @@@ residues &&& of any rational (@@@ or &&& meromorphic &&&) differential form on a compact Riemann &&& surface is zero, but in our case we have @@@ ∑ &&&Q∈X @@@ res &&&Q(@@@ ϕ &&&·@@@ α &&&) = res@@@ P &&&(@@@ ϕ &&&·@@@ α &&&) @@@ 6= &&& 0.
+Step 3. We claim that
+@@@ χ &&&(D) @@@ ≥ &&& degD+1−g
+for all divisors D. Note that we can choose points @@@ P &&&1,...,@@@ P &&&r such that @@@ D &&&+@@@ P &&&1 +···+@@@ P &&&r
+is
+precisely the intersection divisor of X with a certain number n of hyperplanes: for every
+point in D we just choose a hyperplane through that point and add all other intersection
+points with X to the @@@ P &&&i
+. This then means that O(@@@ D &&&+@@@ P &&&1 +···+@@@ P &&&r) = O(n). By possibly
+adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
+by example 7.7.2 we find that

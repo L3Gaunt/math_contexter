@@ -5,6 +5,8 @@ import os
 import json
 from typing import List, Dict
 import re
+from langfuse import Langfuse
+from langfuse.decorators import langfuse_context, observe
 
 # Load API key from .env
 load_dotenv()
@@ -12,43 +14,56 @@ OPENROUTER_KEY = os.getenv("OPENROUTER_KEY")
 if not OPENROUTER_KEY:
     raise ValueError("OPENROUTER_KEY not found in .env")
 
+# Initialize Langfuse client
+langfuse = Langfuse(
+    public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
+    secret_key=os.getenv("LANGFUSE_SECRET_KEY"),
+    host=os.getenv("LANGFUSE_BASEURL", "https://us.cloud.langfuse.com")
+)
+
+# something like https://arxiv.org/pdf/2304.10428
 # System prompt for the LLM
-SYSTEM_PROMPT = """
-You are an assistant that converts mathematical text into a structured JSON format. Identify theorems, definitions, references, and other mathematical concepts, and represent them as:
+SYSTEM_PROMPT = """You are a specialized mathematical text analyzer. Your task is to process mathematical text and annotate specialized mathematical elements with markers.
 
-{
-  "context": {
-    "type": "theorem",  // e.g., "theorem", "definition", "lemma"
-    "name": "theorem 3.3.",
-    "content": [
-      {"type": "text", "value": "Theorem 3.3. "},
-      {
-        "type": "concept_definition",
-        "name": "X",
-        "symbol_type": "symbol",
-        "id": "def_x",
-        "content": [
-          {"type": "text", "value": "Let X be a "},
-          {"type": "reference", "to": "unknown", "value": "locally free"},
-          {"type": "text", "value": " "},
-          {"type": "reference", "to": "unknown", "value": "sheaf"}
-        ]
-      },
-      {"type": "text", "value": ". Then "},
-      {"type": "reference", "to": "def_x", "value": "X"},
-      {"type": "text", "value": " is xyz..."}
-    ]
-  }
-}
+For each chunk of mathematical text you receive:
+1. Identify all specialized mathematical elements including:
+   - Mathematical terms (e.g., "residue theorem", "meromorphic", "divisor")
+   - Mathematical symbols (e.g., "χ(D)", "∑", "∈")
+   - Variable references (e.g., "D", "P", "X", "α")
+   - References to theorems, definitions, lemmas, examples (e.g., "example 7.7.2")
 
-Guidelines:
-- Assign unique IDs to definitions (e.g., "def_x") and reference them.
-- Use "to": "unknown" for undefined terms.
-- Ensure the "content" list reconstructs the original text when "value" fields are concatenated.
-- Escape all strings properly in JSON.
+2. Add the marker "@@@ " before each identified element and " &&&" after it.
+
+3. Do NOT annotate common English words or general descriptive terms unless they have a specific mathematical meaning in context.
+
+4. Preserve all original text, spacing, and formatting - only add the markers.
+
+5. Return the annotated text directly as plain text.
+
+Example input:
+"of order 1. But this is a contradiction to the residue theorem of complex analysis: the sum of the residues"
+
+Example output:
+"of @@@ order &&& 1. But this is a contradiction to the @@@ residue theorem &&& of @@@ complex analysis &&&: the @@@ sum &&& of the @@@ residues &&&"
 """
 
-def split_text_into_chunks(text: str, chunk_size: int = 100, overlap: int = 70) -> List[tuple[str, int, int]]:
+alt_sysprompt = """You are a mathematical reference detector that identifies usage of previously defined concepts. Process the input as follows:
+
+1. Find ALL references to numbered items (Definitions, Theorems, etc.) and specialized notation
+2. Wrap each reference with @@@ before and &&& after, including:
+   - Cross-references like "lemma 2.1.8"
+   - Symbol reuses (OX, Rp when used post-definition)
+   - Theorem/Proposition numbers in proofs
+   - Nested references within other definitions
+3. Handle multiple reference types:
+   - Explicit: "by Proposition 5.1.12(i)"
+   - Implicit: "the sheaf OX (see definition 2.1.5)"
+   - Symbolic: "ϕp ∈ Rp"
+4. Do NOT annotate definitions when they are introduced for the first time.
+5. Example wrapping:
+...we expect from @@@affine varieties (see definition 2.1.5)&&&, @@@remark 2.1.6&&&, and @@@proposition 2.1.10)&&&..."""
+
+def split_text_into_chunks(text: str, chunk_size: int = 300, overlap: int = 150) -> List[tuple[str, int, int]]:
     """Split text into chunks with specified size and overlap, preserving whitespace."""
     tokens = re.split(r'(\s+)', text)
     pairs = [(tokens[i], tokens[i+1] if i+1 < len(tokens) else '') for i in range(0, len(tokens), 2) if tokens[i].strip()]
@@ -63,85 +78,154 @@ def split_text_into_chunks(text: str, chunk_size: int = 100, overlap: int = 70) 
         chunks.append((chunk_text, start_idx, end_idx))
     return chunks
 
-async def call_llm_async(chunk: str, session: aiohttp.ClientSession, semaphore: asyncio.Semaphore) -> Dict | None:
-    """Call the LLM asynchronously to convert chunk to JSON."""
+async def call_llm_async(chunk: str, session: aiohttp.ClientSession, semaphore: asyncio.Semaphore) -> str | None:
+    """Call the LLM asynchronously to annotate the chunk with math references."""
     async with semaphore:
-        prompt = f"Convert the following mathematical text into the specified JSON format:\n\n{chunk}"
+        prompt = f'''
+{chunk}'''
         data = {
             "model": "qwen/qwen-2.5-7b-instruct",
-            "messages": [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}],
-            "response_format": {"type": "json_object"}
+            "messages": [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
         }
         headers = {"Authorization": f"Bearer {OPENROUTER_KEY}", "Content-Type": "application/json"}
+        
+        # Create a trace in Langfuse
+        trace = langfuse.trace(
+            name="math_annotation",
+            metadata={"chunk_length": len(chunk)}
+        )
+        
+        # Create a generation span to track the LLM call
+        generation = trace.generation(
+            name="annotate_math_references",
+            model="qwen/qwen-2.5-7b-instruct",
+            input=data,
+            metadata={"chunk_size": len(chunk)}
+        )
+        
         try:
             async with session.post("https://openrouter.ai/api/v1/chat/completions", json=data, headers=headers) as resp:
                 response_json = await resp.json()
                 content = response_json['choices'][0]['message']['content']
-                return json.loads(content)
+                
+                # Update the generation with the result
+                generation.end(
+                    output=content,
+                    usage={
+                        "prompt_tokens": response_json.get("usage", {}).get("prompt_tokens", 0),
+                        "completion_tokens": response_json.get("usage", {}).get("completion_tokens", 0),
+                        "total_tokens": response_json.get("usage", {}).get("total_tokens", 0)
+                    }
+                )
+                
+                return content
         except Exception as e:
-            print(f"Error processing chunk: {e}")
+            error_message = str(e)
+            print(f"Error processing chunk: {error_message}")
+            
+            # End the generation with error
+            generation.end(
+                error=error_message,
+                status="error"
+            )
+            
             return None
 
-async def call_llm_with_retry(chunk: str, session: aiohttp.ClientSession, semaphore: asyncio.Semaphore, max_retries: int = 3) -> Dict | None:
+async def call_llm_with_retry(chunk: str, session: aiohttp.ClientSession, semaphore: asyncio.Semaphore, max_retries: int = 3) -> str | None:
     """Call LLM with retries if validation fails."""
+    # Create a trace for the retry logic
+    trace = langfuse.trace(
+        name="llm_call_with_retry",
+        metadata={"chunk_length": len(chunk), "max_retries": max_retries}
+    )
+    
     for attempt in range(max_retries):
-        json_obj = await call_llm_async(chunk, session, semaphore)
-        if json_obj and validate_json(json_obj, chunk):
-            return json_obj
-        print(f"Validation failed for chunk: {chunk[:50]}... Retrying ({attempt+1}/{max_retries})")
+        # Create a span for this attempt
+        span = trace.span(
+            name=f"attempt_{attempt+1}",
+            metadata={"attempt": attempt+1}
+        )
+        
+        result = await call_llm_async(chunk, session, semaphore)
+        
+        if result:
+            span.update(status="success")
+            trace.update(status="success")
+            span.end()
+            return result
+            
+        span.update(status="error")
+        span.end()
+        print(f"Failed to process chunk: {chunk[:50]}... Retrying ({attempt+1}/{max_retries})")
+    
+    trace.update(status="error", metadata={"error": f"Failed after {max_retries} attempts"})
     print(f"Failed to process chunk after {max_retries} attempts: {chunk[:50]}...")
     return None
 
-def split_content_at(content: List[Dict], skip_length: int) -> tuple[List[Dict], List[Dict]]:
-    """Split content list at a character position, returning before and after parts."""
-    accumulated = 0
-    for i, obj in enumerate(content):
-        if "value" in obj:
-            val_len = len(obj["value"])
-            if accumulated + val_len <= skip_length:
-                accumulated += val_len
+async def main(text: str, output_file: str = "output.txt", concurrency_limit: int = 5):
+    """Process mathematical text and write annotated output to file."""
+    # Create a root trace for the entire process
+    trace = langfuse.trace(
+        name="process_math_text", 
+        metadata={"text_length": len(text)}
+    )
+    
+    try:
+        # Split text into chunks
+        split_span = trace.span(name="split_text_into_chunks")
+        chunks = split_text_into_chunks(text)
+        split_span.update(metadata={"num_chunks": len(chunks)})
+        split_span.end()
+        
+        # Process chunks in parallel
+        semaphore = asyncio.Semaphore(concurrency_limit)
+        async with aiohttp.ClientSession() as session:
+            tasks = [call_llm_with_retry(chunk, session, semaphore) for chunk, _, _ in chunks]
+            
+            process_span = trace.span(name="process_chunks_parallel")
+            results = await asyncio.gather(*tasks)
+            process_span.end()
+        
+        # Filter and report failed chunks
+        valid_results = [r for r in results if r is not None]
+        if len(valid_results) < len(chunks):
+            print(f"Warning: {len(chunks) - len(valid_results)} chunks failed to process.")
+        
+        # Combine results in order
+        combine_span = trace.span(name="combine_results")
+        processed_text = ""
+        last_end_idx = 0
+        
+        for i, (result, (_, start_idx, end_idx)) in enumerate(zip(valid_results, chunks)):
+            # If there's a gap, use original text
+            if start_idx > last_end_idx:
+                processed_text += text[last_end_idx:start_idx]
+            
+            # If there's overlap with previous chunk, skip the overlapping part
+            if i > 0 and start_idx < last_end_idx:
+                overlap_size = last_end_idx - start_idx
+                if overlap_size < len(result):
+                    processed_text += result[overlap_size:]
             else:
-                if obj["type"] == "text" and skip_length - accumulated < val_len:
-                    split_pos = skip_length - accumulated
-                    remaining_obj = obj.copy()
-                    remaining_obj["value"] = obj["value"][split_pos:]
-                    return content[:i], [remaining_obj] + content[i+1:]
-                return content[:i], content[i:]
-    return content, []
-
-async def main(text: str, output_file: str = "output.json", concurrency_limit: int = 5):
-    """Process mathematical text and write structured JSON to file."""
-    # Split text into chunks
-    chunks = split_text_into_chunks(text)
+                processed_text += result
+            
+            last_end_idx = end_idx
+        
+        # Add any remaining text
+        if last_end_idx < len(text):
+            processed_text += text[last_end_idx:]
+        
+        combine_span.end()
+        
+        # Write to file
+        with open(output_file, "w") as f:
+            f.write(processed_text)
+            
+        trace.update(status="success")
     
-    # Process chunks in parallel
-    semaphore = asyncio.Semaphore(concurrency_limit)
-    async with aiohttp.ClientSession() as session:
-        tasks = [call_llm_with_retry(chunk, session, semaphore) for chunk, _, _ in chunks]
-        results = await asyncio.gather(*tasks)
-    
-    # Filter and report failed chunks
-    valid_results = [r for r in results if r is not None]
-    if len(valid_results) < len(chunks):
-        print(f"Warning: {len(chunks) - len(valid_results)} chunks failed to process.")
-    
-    # Unify overlapping content
-    overall_content = []
-    for i, (json_obj, (_, start_idx, end_idx)) in enumerate(zip(valid_results, chunks)):
-        content = json_obj["context"]["content"]
-        if i == 0:
-            overall_content.extend(content)
-        else:
-            skip_length = chunks[i-1][2] - start_idx
-            if skip_length > 0:
-                _, remaining = split_content_at(content, skip_length)
-                overall_content.extend(remaining)
-            else:
-                overall_content.extend(content)
-    
-    # Write to file
-    with open(output_file, "w") as f:
-        json.dump({"content": overall_content}, f, indent=2)
+    except Exception as e:
+        trace.update(status="error", metadata={"error": str(e)})
+        raise
 
 # Example usage
 if __name__ == "__main__":

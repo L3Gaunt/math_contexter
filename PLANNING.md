@@ -3,8 +3,8 @@ High-level plan, where it's going for MINIMAL functionality
 - a simple scroll function where you can enter a range, and it prints the text + the referenced definitions
 
 More detailed plan for research. Concrete things:
- [ ] set up an environment to try different prompts/workflows?
-      [ ] set up an envir
+ [PROGRESS] set up an environment to try different prompts/workflows?
+      [ ] upload on langtrace??
  [ ] figure out how to extract INTRODUCTIONS of concepts
      - [ ] try the simplest possible thing, wrapping in prompts.
  [ ] figure out how to extract REFERENCES to concepts
@@ -74,11 +74,22 @@ till then:
   - get some longer extracts
 check in 15:52:
   - made more detailed checklist, next checkin: 16:30
-check in 16:30
+  - next 60 secs: looked over things to see if they are applicable <- DONE
+
+next: try extraction system prompt on different models + lengths + extraction approaches
+
+- log on on langchain
+- try approaches:
 
 
-Insight: definitions/theorems are the _easy_ part!! More interesting whether variable references are tracked correctly and completely!!
+check in 16:30, till then: want to have a concrete plan
 
-Therefore: first try extracting var introductions.
 
-Compare different methods of extracting definitions and named entities
+16:52 late 16:30 check in. I did log on on langfuse, and tried to get the prompt work on the dataset. It didn't work. Next: See tutorial. Next checkin: 17:20
+
+17:35 found that the problem is in the fact that the csv input was not in json format, tried to debug how to connect langfuse mcp server <- stop that, instead do API in .env
+
+next checkin: 18:00
+18:16 late checkin: got stuff to upload to langtrace!
+
+next checkin: 18:30 till then: try some prompts

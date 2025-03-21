@@ -12,8 +12,36 @@ points with X to the Pi
 adding more intersection points of X with hyperplanes we can make n arbitrarily large. So
 by example 7.7.2 we find that
 
-
-{'context': {'type': 'reference', 'name': 'O(n)', 'content': [{'type': 'text', 'value': 'O(n). By possibly adding more intersection points of '}, {'type': 'concept_definition', 'name': 'X', 'symbol_type': 'symbol', 'id': 'def_X', 'content': [{'type': 'text', 'value': 'X with hyperplanes we can make n arbitrarily large. So by example '}]}, {'type': 'reference', 'to': 'ex_7_7_2', 'value': '7.7.2'}]}}
+(the indenting was done as postprocessing of the terminal output)
+{
+  "context": {
+    "type": "reference",
+    "name": "O(n)",
+    "content": [
+      {
+        "type": "text",
+        "value": "O(n). By possibly adding more intersection points of "
+      },
+      {
+        "type": "concept_definition",
+        "name": "X",
+        "symbol_type": "symbol", 
+        "id": "def_X",
+        "content": [
+          {
+            "type": "text",
+            "value": "X with hyperplanes we can make n arbitrarily large. So by example "
+          }
+        ]
+      },
+      {
+        "type": "reference",
+        "to": "ex_7_7_2",
+        "value": "7.7.2"
+      }
+    ]
+  }
+}
 Reconstructed text: O(n). By possibly adding more intersection points of X with hyperplanes we can make n arbitrarily large. So by example 7.7.2
 Original     chunk: O(n). By possibly
 adding more intersection points of X with hyperplanes we can make n arbitrarily large. So

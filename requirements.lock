@@ -16,22 +16,67 @@ aiohttp==3.11.13
     # via math-contexter
 aiosignal==1.3.2
     # via aiohttp
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.9.0
+    # via httpx
+    # via langfuse
 attrs==25.1.0
     # via aiohttp
+backoff==2.2.1
+    # via langfuse
+certifi==2025.1.31
+    # via httpcore
+    # via httpx
+    # via requests
+charset-normalizer==3.4.1
+    # via requests
 dotenv==0.9.9
     # via math-contexter
 frozenlist==1.5.0
     # via aiohttp
     # via aiosignal
+h11==0.14.0
+    # via httpcore
+httpcore==1.0.7
+    # via httpx
+httpx==0.28.1
+    # via langfuse
 idna==3.10
+    # via anyio
+    # via httpx
+    # via langfuse
+    # via requests
     # via yarl
+langfuse==2.60.1
+    # via math-contexter
 multidict==6.1.0
     # via aiohttp
     # via yarl
+numpy==2.2.4
+    # via math-contexter
+packaging==24.2
+    # via langfuse
 propcache==0.3.0
     # via aiohttp
     # via yarl
+pydantic==2.10.6
+    # via langfuse
+pydantic-core==2.27.2
+    # via pydantic
 python-dotenv==1.0.1
     # via dotenv
+requests==2.32.3
+    # via langfuse
+sniffio==1.3.1
+    # via anyio
+typing-extensions==4.12.2
+    # via anyio
+    # via pydantic
+    # via pydantic-core
+urllib3==2.3.0
+    # via requests
+wrapt==1.17.2
+    # via langfuse
 yarl==1.18.3
     # via aiohttp
