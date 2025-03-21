@@ -3,7 +3,10 @@ High-level plan, where it's going for MINIMAL functionality
 - a simple scroll function where you can enter a range, and it prints the text + the referenced definitions
 
 More detailed plan for research. Concrete things:
+ [ ] set up an environment to try different prompts/workflows?
+      [ ] set up an envir
  [ ] figure out how to extract INTRODUCTIONS of concepts
+     - [ ] try the simplest possible thing, wrapping in prompts.
  [ ] figure out how to extract REFERENCES to concepts
 
 What is the 
@@ -69,6 +72,9 @@ okay, plan next 2 hrs:
 15:15 next check-in: 15:45?
 till then:
   - get some longer extracts
+check in 15:52:
+  - made more detailed checklist, next checkin: 16:30
+check in 16:30
 
 
 Insight: definitions/theorems are the _easy_ part!! More interesting whether variable references are tracked correctly and completely!!
