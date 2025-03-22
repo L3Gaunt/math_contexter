@@ -4,10 +4,13 @@ High-level plan, where it's going for MINIMAL functionality
 
 More detailed plan for research. Concrete things:
  [PROGRESS] set up an environment to try different prompts/workflows?
-      [ ] upload on langtrace??
+      [PROGRESS] upload on langfuse??
+          [PROGRESS] Upload the entire chunk-splitted dataset to langfuse in a way that I can run experiments on the thing with different prompts.
  [ ] figure out how to extract INTRODUCTIONS of concepts
-     - [ ] try the simplest possible thing, wrapping in prompts.
+     - [PROGRESS] try the simplest possible thing, wrapping in @@@$$$.
+     - [ ] if not good enough: compare with other approaches like first extracting entities
  [ ] figure out how to extract REFERENCES to concepts
+
 
 What is the 
 
@@ -93,3 +96,16 @@ next checkin: 18:00
 18:16 late checkin: got stuff to upload to langtrace!
 
 next checkin: 18:30 till then: try some prompts
+
+18:30 checkin: I didn't yet see things in langfuse. next checkin: 19:00. till then: get
+
+19:00 didn't understand, didn't finish the thought before. Next checkin: 20:30. till then: make a prompt to upload nothing to langfuse except the chunked dataset, in a way that I don't hit rate limits and can experiment to it in the API.
+
+finished that planning at 19:13
+
+
+
+very next thing: make a better prompt for the langfuse integration that does nothing but
+ - upload the dataset
+ - add tracing to evaluation.
+ - get to the point that 
