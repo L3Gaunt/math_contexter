@@ -5,21 +5,12 @@ import os
 import json
 from typing import List, Dict
 import re
-from langfuse import Langfuse
-from langfuse.decorators import langfuse_context, observe
 
 # Load API key from .env
 load_dotenv()
 OPENROUTER_KEY = os.getenv("OPENROUTER_KEY")
 if not OPENROUTER_KEY:
     raise ValueError("OPENROUTER_KEY not found in .env")
-
-# Initialize Langfuse client
-langfuse = Langfuse(
-    public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
-    secret_key=os.getenv("LANGFUSE_SECRET_KEY"),
-    host=os.getenv("LANGFUSE_BASEURL", "https://us.cloud.langfuse.com")
-)
 
 # something like https://arxiv.org/pdf/2304.10428
 # System prompt for the LLM
@@ -88,144 +79,67 @@ async def call_llm_async(chunk: str, session: aiohttp.ClientSession, semaphore: 
             "messages": [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
         }
         headers = {"Authorization": f"Bearer {OPENROUTER_KEY}", "Content-Type": "application/json"}
-        
-        # Create a trace in Langfuse
-        trace = langfuse.trace(
-            name="math_annotation",
-            metadata={"chunk_length": len(chunk)}
-        )
-        
-        # Create a generation span to track the LLM call
-        generation = trace.generation(
-            name="annotate_math_references",
-            model="qwen/qwen-2.5-7b-instruct",
-            input=data,
-            metadata={"chunk_size": len(chunk)}
-        )
-        
         try:
             async with session.post("https://openrouter.ai/api/v1/chat/completions", json=data, headers=headers) as resp:
                 response_json = await resp.json()
                 content = response_json['choices'][0]['message']['content']
-                
-                # Update the generation with the result
-                generation.end(
-                    output=content,
-                    usage={
-                        "prompt_tokens": response_json.get("usage", {}).get("prompt_tokens", 0),
-                        "completion_tokens": response_json.get("usage", {}).get("completion_tokens", 0),
-                        "total_tokens": response_json.get("usage", {}).get("total_tokens", 0)
-                    }
-                )
-                
                 return content
         except Exception as e:
-            error_message = str(e)
-            print(f"Error processing chunk: {error_message}")
-            
-            # End the generation with error
-            generation.end(
-                error=error_message,
-                status="error"
-            )
-            
+            print(f"Error processing chunk: {e}")
             return None
 
 async def call_llm_with_retry(chunk: str, session: aiohttp.ClientSession, semaphore: asyncio.Semaphore, max_retries: int = 3) -> str | None:
     """Call LLM with retries if validation fails."""
-    # Create a trace for the retry logic
-    trace = langfuse.trace(
-        name="llm_call_with_retry",
-        metadata={"chunk_length": len(chunk), "max_retries": max_retries}
-    )
-    
     for attempt in range(max_retries):
-        # Create a span for this attempt
-        span = trace.span(
-            name=f"attempt_{attempt+1}",
-            metadata={"attempt": attempt+1}
-        )
-        
         result = await call_llm_async(chunk, session, semaphore)
-        
         if result:
-            span.update(status="success")
-            trace.update(status="success")
-            span.end()
             return result
-            
-        span.update(status="error")
-        span.end()
         print(f"Failed to process chunk: {chunk[:50]}... Retrying ({attempt+1}/{max_retries})")
-    
-    trace.update(status="error", metadata={"error": f"Failed after {max_retries} attempts"})
     print(f"Failed to process chunk after {max_retries} attempts: {chunk[:50]}...")
     return None
 
 async def main(text: str, output_file: str = "output.txt", concurrency_limit: int = 5):
     """Process mathematical text and write annotated output to file."""
-    # Create a root trace for the entire process
-    trace = langfuse.trace(
-        name="process_math_text", 
-        metadata={"text_length": len(text)}
-    )
+    # Split text into chunks
+    chunks = split_text_into_chunks(text)
     
-    try:
-        # Split text into chunks
-        split_span = trace.span(name="split_text_into_chunks")
-        chunks = split_text_into_chunks(text)
-        split_span.update(metadata={"num_chunks": len(chunks)})
-        split_span.end()
-        
-        # Process chunks in parallel
-        semaphore = asyncio.Semaphore(concurrency_limit)
-        async with aiohttp.ClientSession() as session:
-            tasks = [call_llm_with_retry(chunk, session, semaphore) for chunk, _, _ in chunks]
-            
-            process_span = trace.span(name="process_chunks_parallel")
-            results = await asyncio.gather(*tasks)
-            process_span.end()
-        
-        # Filter and report failed chunks
-        valid_results = [r for r in results if r is not None]
-        if len(valid_results) < len(chunks):
-            print(f"Warning: {len(chunks) - len(valid_results)} chunks failed to process.")
-        
-        # Combine results in order
-        combine_span = trace.span(name="combine_results")
-        processed_text = ""
-        last_end_idx = 0
-        
-        for i, (result, (_, start_idx, end_idx)) in enumerate(zip(valid_results, chunks)):
-            # If there's a gap, use original text
-            if start_idx > last_end_idx:
-                processed_text += text[last_end_idx:start_idx]
-            
-            # If there's overlap with previous chunk, skip the overlapping part
-            if i > 0 and start_idx < last_end_idx:
-                overlap_size = last_end_idx - start_idx
-                if overlap_size < len(result):
-                    processed_text += result[overlap_size:]
-            else:
-                processed_text += result
-            
-            last_end_idx = end_idx
-        
-        # Add any remaining text
-        if last_end_idx < len(text):
-            processed_text += text[last_end_idx:]
-        
-        combine_span.end()
-        
-        # Write to file
-        with open(output_file, "w") as f:
-            f.write(processed_text)
-            
-        trace.update(status="success")
+    # Process chunks in parallel
+    semaphore = asyncio.Semaphore(concurrency_limit)
+    async with aiohttp.ClientSession() as session:
+        tasks = [call_llm_with_retry(chunk, session, semaphore) for chunk, _, _ in chunks]
+        results = await asyncio.gather(*tasks)
     
-    except Exception as e:
-        trace.update(status="error", metadata={"error": str(e)})
-        raise
+    # Filter and report failed chunks
+    valid_results = [r for r in results if r is not None]
+    if len(valid_results) < len(chunks):
+        print(f"Warning: {len(chunks) - len(valid_results)} chunks failed to process.")
+    
+    # Combine results in order
+    processed_text = ""
+    last_end_idx = 0
+    
+    for i, (result, (_, start_idx, end_idx)) in enumerate(zip(valid_results, chunks)):
+        # If there's a gap, use original text
+        if start_idx > last_end_idx:
+            processed_text += text[last_end_idx:start_idx]
+        
+        # If there's overlap with previous chunk, skip the overlapping part
+        if i > 0 and start_idx < last_end_idx:
+            overlap_size = last_end_idx - start_idx
+            if overlap_size < len(result):
+                processed_text += result[overlap_size:]
+        else:
+            processed_text += result
+        
+        last_end_idx = end_idx
+    
+    # Add any remaining text
+    if last_end_idx < len(text):
+        processed_text += text[last_end_idx:]
+    
+    # Write to file
+    with open(output_file, "w") as f:
+        f.write(processed_text)
 
 # Example usage
 if __name__ == "__main__":
