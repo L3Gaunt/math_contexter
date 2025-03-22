@@ -107,5 +107,5 @@ finished that planning at 19:13
 
 very next thing: make a better prompt for the langfuse integration that does nothing but
  - upload the dataset
- - add tracing to evaluation.
- - get to the point that 
+ - get to the point that I can run experiments in the web interface
+ - add tracing to run.
